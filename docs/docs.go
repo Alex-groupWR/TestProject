@@ -222,7 +222,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Playlist"
+                    "Songs"
                 ],
                 "summary": "Get a list of songs with pagination and filtering",
                 "parameters": [
@@ -288,7 +288,7 @@ const docTemplate = `{
             }
         },
         "/songs/update": {
-            "post": {
+            "get": {
                 "description": "Update the details of a song based on the provided information",
                 "consumes": [
                     "application/json"
@@ -531,7 +531,7 @@ const docTemplate = `{
                 },
                 "link": {
                     "type": "string",
-                    "example": "example.com"
+                    "example": ""
                 },
                 "releaseDate": {
                     "type": "string",

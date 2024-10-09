@@ -44,6 +44,6 @@ func SetupRouter(db *gorm.DB) {
 
 	err = router.Run()
 	if err != nil {
-		panic(err)
+		log.Fatal("Fatal run server")
 	}
 }

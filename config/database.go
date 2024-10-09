@@ -3,6 +3,7 @@ package config
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 )
 
 func InitDatabaseConnection() *gorm.DB {
@@ -10,7 +11,7 @@ func InitDatabaseConnection() *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(dsnURL), &gorm.Config{})
 	if err != nil {
-		panic(err)
+		log.Fatal("Fatal connect DB")
 	}
 
 	return db

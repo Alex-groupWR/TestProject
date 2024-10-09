@@ -137,7 +137,7 @@ definitions:
         example: "1"
         type: string
       link:
-        example: example.com
+        example: ""
         type: string
       releaseDate:
         example: 16.07.2026
@@ -343,9 +343,9 @@ paths:
             $ref: '#/definitions/dto.ErrorInternalServerResponse'
       summary: Get a list of songs with pagination and filtering
       tags:
-      - Playlist
+      - Songs
   /songs/update:
-    post:
+    get:
       consumes:
       - application/json
       description: Update the details of a song based on the provided information
