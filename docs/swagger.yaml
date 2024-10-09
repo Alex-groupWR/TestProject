@@ -1,0 +1,381 @@
+basePath: /
+definitions:
+  dto.DeleteSongDTO:
+    properties:
+      id:
+        example: 1
+        type: integer
+    required:
+    - id
+    type: object
+  dto.ErrorBadRequestResponse:
+    properties:
+      error:
+        example: Bad Request
+        type: string
+    type: object
+  dto.ErrorInternalServerResponse:
+    properties:
+      error:
+        example: Internal Server Error
+        type: string
+    type: object
+  dto.ErrorNotFoundResponse:
+    properties:
+      error:
+        example: Song not found
+        type: string
+    type: object
+  dto.PlaylistResponseDto:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.ResponseSongDTO'
+        type: array
+      limit:
+        example: 15
+        type: integer
+      page:
+        example: 3
+        type: integer
+      total:
+        example: 1
+        type: integer
+    type: object
+  dto.QueryTextSongDTO:
+    properties:
+      id:
+        example: "1"
+        type: string
+    required:
+    - id
+    type: object
+  dto.ResponseInfoSongDTO:
+    properties:
+      link:
+        example: example.com
+        type: string
+      releaseDate:
+        example: 16.07.2006
+        type: string
+      text:
+        example: |-
+          I'm a sad guy, a humid day
+           the humidity of my line
+        type: string
+    type: object
+  dto.ResponseOK:
+    properties:
+      success:
+        example: "true"
+        type: string
+    type: object
+  dto.ResponseSongDTO:
+    properties:
+      group:
+        example: Young Rus
+        type: string
+      link:
+        example: example.com
+        type: string
+      releaseDate:
+        example: 16.07.2006
+        type: string
+      song:
+        example: NeonBones
+        type: string
+      text:
+        example: |-
+          I'm a sad guy, a humid day
+           the humidity of my line
+        type: string
+    type: object
+  dto.ResponseTextSongDTO:
+    properties:
+      part:
+        example: 1
+        type: integer
+      text:
+        example: I'm a sad guy, a humid day
+        type: string
+      totalPart:
+        example: 12
+        type: integer
+    type: object
+  dto.SongDTO:
+    properties:
+      group:
+        example: Young Rus
+        type: string
+      link:
+        example: example.com
+        type: string
+      releaseDate:
+        example: 16.07.2006
+        type: string
+      song:
+        example: NeonBones
+        type: string
+      text:
+        example: |-
+          I'm a sad guy, a humid day
+           the humidity of my line
+        type: string
+    required:
+    - group
+    - link
+    - releaseDate
+    - song
+    - text
+    type: object
+  dto.UpdateSongDTO:
+    properties:
+      group:
+        example: Young Rus
+        type: string
+      id:
+        example: "1"
+        type: string
+      link:
+        example: example.com
+        type: string
+      releaseDate:
+        example: 16.07.2026
+        type: string
+      song:
+        example: Fresh Soft
+        type: string
+      text:
+        example: |-
+          I'm a sad guy, a humid day
+           the humidity of my line
+           the humidity of my line
+        type: string
+    required:
+    - id
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server Petstore server.
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /api/v1/create:
+    get:
+      consumes:
+      - application/json
+      description: Create a new song with the provided details
+      operationId: create-song
+      parameters:
+      - description: Song property
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SongDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorBadRequestResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorInternalServerResponse'
+      summary: Create a new song
+      tags:
+      - Songs
+  /api/v1/delete:
+    get:
+      consumes:
+      - application/json
+      description: Delete song id
+      operationId: delete-song
+      parameters:
+      - description: id delete song
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/dto.DeleteSongDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorBadRequestResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorNotFoundResponse'
+      tags:
+      - Songs
+  /api/v1/getTrackText:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific part of the track text based on the provided
+        page number and song ID
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Song ID
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.QueryTextSongDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseTextSongDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorBadRequestResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorNotFoundResponse'
+      summary: Get a specific part of the track text
+      tags:
+      - Songs
+  /api/v1/info:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve detailed information about a song based on the provided
+        query parameters
+      parameters:
+      - description: Group of the song
+        in: query
+        name: group
+        required: true
+        type: string
+      - description: Name of the song
+        in: query
+        name: song
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseInfoSongDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorBadRequestResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorInternalServerResponse'
+      summary: Get detailed information about a song
+      tags:
+      - Songs
+  /api/v1/playlist:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of songs with pagination and optional filtering
+        by group, song, release date, text, and link
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Number of items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Filter by group
+        in: query
+        name: group
+        type: string
+      - description: Filter by song
+        in: query
+        name: song
+        type: string
+      - description: Filter by release date
+        in: query
+        name: releaseDate
+        type: string
+      - description: Filter by text
+        in: query
+        name: text
+        type: string
+      - description: Filter by link
+        in: query
+        name: link
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of songs
+          schema:
+            $ref: '#/definitions/dto.PlaylistResponseDto'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorInternalServerResponse'
+      summary: Get a list of songs with pagination and filtering
+      tags:
+      - Playlist
+  /songs/update:
+    post:
+      consumes:
+      - application/json
+      description: Update the details of a song based on the provided information
+      parameters:
+      - description: Song property
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateSongDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorBadRequestResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorNotFoundResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorInternalServerResponse'
+      summary: Update a song
+      tags:
+      - Songs
+swagger: "2.0"

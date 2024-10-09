@@ -1,0 +1,7 @@
+{
+    email youremail@example.com
+}
+
+http://localhost:8080 {
+    reverse_proxy localhost:8080
+}
